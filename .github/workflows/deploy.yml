@@ -14,7 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: withastro/action@v3
+      - name: Install, build, and upload your site
+        uses: withastro/action@v3
+        with:
+          node-version: 22 # This fixes the Node.js deprecation warning
+          package-manager: npm # Change to pnpm or yarn if you use them
 
   deploy:
     needs: build

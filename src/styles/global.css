@@ -1,0 +1,69 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography"; /* adds h1-h6 rules for md file, by default in Tailwind text with h1-h6 tags shares same size */
+
+
+/* Paste Radix-generated light scale here */
+:root {
+  --site-bg: url('/bg-light.svg');
+  --accent-9: #A85F3D;   /* solid fill: buttons, badges */
+  --accent-11: #B88A4A;  /* accent text: links, captions */
+  --gray-1: #F3E8D5;
+  --gray-2: #E8D5B8;
+  --gray-6: #D9C3A2;
+  --gray-12: #000000;
+}
+
+/* Paste Radix-generated dark scale here */
+[data-theme="dark"] {
+  --site-bg: url('/bg-dark.svg');
+  /* lighter than 9 for dark-mode text legibility */
+  --accent-9: #C28B58;
+  --accent-11: #D9A574;  /* lighter than 9 for dark-mode text legibility */
+  --gray-1: #151F28;
+  --gray-2: #1D2B38;
+  --gray-6: #465663;
+  --gray-12: #FFFFFF;
+}
+
+/* If VS Code underlines @theme with a warning ("Unknown at rule"), that's only because the Tailwind IntelliSense extension isn't installed or hasn't picked up v4. The CSS is valid; the editor just doesn't know the syntax yet. */
+@theme inline {
+  /* Backgrounds */
+  --color-paper: var(--gray-1);      /* page background */
+  --color-panel: var(--gray-2);      /* cards, panels */
+
+  /* Borders */
+  --color-line: var(--gray-6);       /* borders, dividers */
+
+  /* Text */
+  --color-ink: var(--gray-12);       /* body text, headings */
+
+  /* Accent — fills */
+  --color-accent: var(--accent-9);   /* buttons, badges, filled elements */
+
+  /* Accent — text */
+  --color-accent-text: var(--accent-11); /* links, captions, colored text */
+}
+
+/*
+I'll leave Deepseek response here for further usage.
+
+Every --color-* line gives you the full utility family (bg-*, text-*, border-*, ring-*, fill-*, stroke-*, outline-*, divide-*, shadow-*, accent-*).
+
+So this block gives you six color names, each with ten classes:
+
+Your class	Reads	Use
+bg-paper / text-paper / border-paper …	var(--gray-1)	Page background
+bg-panel …	var(--gray-2)	Card backgrounds
+border-line / divide-line …	var(--gray-6)	Borders, separators
+text-ink / bg-ink / border-ink …	var(--gray-12)	Text, headings
+bg-accent / ring-accent / fill-accent …	var(--accent-9)	Filled buttons, badges
+text-accent-text / border-accent-text …	var(--accent-11)	Links, colored text
+The key detail
+bg-accent-text and text-accent both exist. But the right pair is:
+
+bg-accent for filled elements (the loud solid)
+
+text-accent-text for colored text (the legible step)
+*/
+
+

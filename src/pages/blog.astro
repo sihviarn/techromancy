@@ -1,0 +1,79 @@
+---
+import '../styles/global.css'
+import TMHeader from "../layouts/components/TMHeader.astro"
+import TMFooter from "../layouts/components/TMFooter.astro"
+const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
+const pageTitle = "Blog";
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{pageTitle}</title>
+	</head>
+
+  	<div class="fixed inset-0 -z-10 bg-[image:var(--site-bg)] bg-cover bg-center"></div>
+
+	<body class="flex min-h-screen flex-col antialiased">
+    <TMHeader />
+	<main class="mx-auto w-full max-w-3xl flex-1 px-4 py-10">
+	<section class="bg-accent text-white p-8 mb-8">
+	<h1>blog.astro</h1>
+
+	<ul class="divide-y divide-line">
+  	{allPosts
+    .sort((a: any, b: any) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf())
+    .map((post: any) => (
+      <li class="py-6 flex gap-6">
+        
+{post.frontmatter.image?.url && (
+  <img
+    src={post.frontmatter.image.url}
+    alt={post.frontmatter.image.alt || ""}
+    class="w-32 h-24 object-cover border border-line shrink-0"
+  />
+)}
+
+        <div class="flex-1 min-w-0">
+          <a href={post.url} class="text-xl font-medium text-ink hover:text-accent-text transition-colors">
+            {post.frontmatter.title}
+          </a>
+
+          {post.frontmatter.description && (
+            <p class="text-sm text-ink/70 mt-1 leading-relaxed">
+              {post.frontmatter.description}
+            </p>
+          )}
+
+          {post.frontmatter.tags?.length > 0 && (
+            <div class="flex flex-wrap gap-2 mt-3">
+              {post.frontmatter.tags.map((tag: string) => (
+                <span class="font-mono text-xs text-accent-text border border-line px-2 py-0.5">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+		{post.frontmatter.pubDate && (
+  		<time class="font-mono text-xs text-ink/50 block mt-3" datetime={post.frontmatter.pubDate}>
+   		{new Date(post.frontmatter.pubDate).toLocaleDateString('en-US', {
+      	year: 'numeric',
+      	month: 'short',
+      	day: 'numeric'
+    	})}
+  </time>
+)}
+        </div>
+      </li>
+    ))}
+	</ul>
+	</section>
+	</main>
+	<TMFooter />
+	</body>
+</html>
